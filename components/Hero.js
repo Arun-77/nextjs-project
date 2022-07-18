@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import people from './assets/HeroImg.png';
+import people from '../public/HeroImg.png';
 import Image from 'next/image';
 
 export const StyledHero = styled.section`

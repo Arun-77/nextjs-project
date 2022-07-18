@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import mete from './assets/iconMeteor.svg';
+import mete from '../public/iconMeteor.svg';
 import Image from 'next/image';
 
 const default_links = [

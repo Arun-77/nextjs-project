@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
-import fb from './assets/icon-facebook.svg';
-import tw from './assets/icon-twitter.svg';
-import pt from './assets/icon-pinterest.svg';
-import ins from './assets/icon-instagram.svg';
+import fb from '../public/icon-facebook.svg';
+import tw from '../public/icon-twitter.svg';
+import pt from '../public/icon-pinterest.svg';
+import ins from '../public/icon-instagram.svg';
 import styled from 'styled-components';
 
 const FootSection = styled.section`
@@ -58,9 +58,6 @@ const FootSection = styled.section`
 		flex-direction: column;
 		align-items: center;
 		text-align: center;
-		/* #last:hover {
-			fill: #2acfcf;
-		} */
 
 		.logos {
 			display: none;

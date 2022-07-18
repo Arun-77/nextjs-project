@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import met from './assets/iconMeteor.svg';
+import met from '../public/iconMeteor.svg';
 import Image from 'next/image';
 
 const BgSection = styled.section`
@@ -12,7 +12,6 @@ const BgSection = styled.section`
 	.startBg {
 		width: 100%;
 		height: 200px;
-		/* z-index: -1; */
 		position: absolute;
 		top: 0;
 		left: 0;

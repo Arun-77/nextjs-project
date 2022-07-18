@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
-import stat from './assets/iconBrand.svg';
+import stat from '../public/iconBrand.svg';
 
 const StatSection = styled.section`
 	padding: 3.5rem 0.6rem 2rem 0.6rem;
