@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -36,6 +36,28 @@ const FormBox = styled.div`
 	margin: 0 auto 1.45rem auto;
 	width: 100%;
 	overflow: hidden;
+
+	.Error {
+		color: #333;
+		background-color: #ec7866;
+		max-width: 400px;
+		width: 80%;
+		font-size: 0.8rem;
+		height: 30px;
+		position: absolute;
+		border-radius: 5px;
+		padding-left: 1rem;
+		padding-top: 0.25rem;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		font-weight: 500;
+		z-index: 5;
+		white-space: nowrap;
+		overflow-x: hidden;
+		text-overflow: ellipsis;
+		margin: 0 auto;
+	}
 
 	@media screen and (max-width: 580px) {
 		height: 170px;
@@ -221,37 +243,38 @@ const LinkBox = () => {
 	const inputRef = useRef('');
 	const [links, setLinks] = useState(default_links);
 	const [loading, setLoading] = useState(false);
+	const [err, setErr] = useState('');
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		try {
-			setLoading(true);
-			axios
-				.post(
-					`https://api.shrtco.de/v2/shorten?url=${inputRef.current.value.trim()}`
-				)
-				.then((res) => {
-					if (
-						res.data.result.full_short_link2 &&
-						res.data.result.original_link !== undefined
-					) {
-						const newLink = {
-							id: uuidv4().toString(),
-							Link: res.data.result.original_link,
-							shortLink: res.data.result.full_short_link2,
-							isCopied: false,
-						};
+		// setErr(null);
+		axios
+			.post(
+				`https://api.shrtco.de/v2/shorten?url=${inputRef.current.value.trim()}`
+			)
+			.then((res) => {
+				console.log(res.data);
+				if (
+					res.data.result.full_short_link2 &&
+					res.data.result.original_link !== undefined
+				) {
+					const newLink = {
+						id: uuidv4().toString(),
+						Link: res.data.result.original_link,
+						shortLink: res.data.result.full_short_link2,
+						isCopied: false,
+					};
 
-						setLinks((prev) => [newLink, ...prev]);
-						console.log(links);
-					}
-					// getObtain();
-					inputRef.current.value = '';
-				});
-			setLoading(false);
-		} catch (error) {
-			console.log('error');
-		}
+					setLinks((prev) => [newLink, ...prev]);
+				}
+
+				inputRef.current.value = '';
+			})
+			.catch((error) => {
+				setErr(error.response.data.error);
+				console.log(err);
+				// console.log(error);
+			});
 	};
 
 	const copyHandler = (id) => {
@@ -261,13 +284,21 @@ const LinkBox = () => {
 			}
 			return link;
 		});
-		console.log(newLists);
 		setLinks(newLists);
 	};
+
+	useEffect(() => {
+		const time = setTimeout(() => {
+			setErr(null);
+		}, 3000);
+
+		return () => clearTimeout(time);
+	}, [err]);
 
 	return (
 		<section className="linkSec">
 			<FormBox>
+				{err && <h2 className={err ? 'Error active' : 'Error'}>{err}</h2>}
 				<Image src={mete} alt="form_Image" className="formImg" />
 				<Form onSubmit={submitHandler}>
 					<input
@@ -309,11 +340,3 @@ const LinkBox = () => {
 
 export default LinkBox;
 
-// const newLink = {
-// 		key: uuidv4(),
-// 		link: shortenLink.original_link,
-// 		shortLink: shortenLink.full_short_link,
-// 	};
-// 	console.log(newLink);
-// 	setLinks((prev) => [newLink, ...prev]);
-// 	console.log(links);

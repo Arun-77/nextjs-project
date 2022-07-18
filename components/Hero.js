@@ -35,8 +35,6 @@ export const StyledHero = styled.section`
 			letter-spacing: 0.1rem;
 		}
 	}
-	/*	@media screen and (max-width: 1440px) {
-	} */
 `;
 
 const Hero = () => {
