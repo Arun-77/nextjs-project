@@ -1,0 +1,27 @@
+{
+  "name": "tif-main",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "next": "12.2.2",
+    "react": "18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "18.2.0",
+    "styled-components": "^5.3.5",
+    "styled-system": "^5.1.5",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^2.0.7",
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.2"
+  }
+}
